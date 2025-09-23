@@ -1,11 +1,14 @@
-import { Button } from './components/ui/button'
-
+import Navbar from './components/ui/Navbar'
+import Auth from './pages/Auth'
+import Home from './pages/Home'
 function App() {
 
   return (
     <>
-      <div className='bg-amber-300'>
-        <Button>Click</Button>
+     <div>
+        <Navbar/>
+        {/* <Auth/>  */}
+        <Home/>
       </div>
     </>
   )
