@@ -234,10 +234,10 @@ const Footer = () => {
   };
 
   return (
-    <footer ref={footerRef} className="bg-card text-card-foreground border-t relative overflow-hidden">
+    <footer ref={footerRef} className="bg-card text-card-foreground border-t relative overflow-hidden z-[50]">
       
       {/* Background Decorative Elements */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute top-20 left-10 w-32 h-32 border border-border rounded-full floating-element"></div>
         <div className="absolute top-40 right-20 w-24 h-24 border border-border rounded-full floating-element" style={{animationDelay: '2s'}}></div>
         <div className="absolute bottom-40 left-1/3 w-20 h-20 border border-border rounded-full floating-element" style={{animationDelay: '4s'}}></div>

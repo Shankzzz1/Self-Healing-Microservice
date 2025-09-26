@@ -132,7 +132,7 @@ html {
   align-items: center;
   justify-content: center;
   background: color-mix(in oklab, var(--background) 85%, black);
-  z-index: 9998;
+  z-index: 40;
 }
 
 .app-loader-dot {
@@ -149,4 +149,13 @@ html {
 @keyframes appDot {
   0%, 80%, 100% { transform: scale(0) }
   40% { transform: scale(1) }
+}
+
+/* Route-level visual reset utility */
+.reset-visual {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  isolation: isolate;
+  background: var(--background);
 }

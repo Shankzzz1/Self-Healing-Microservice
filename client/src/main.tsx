@@ -18,9 +18,10 @@ root.render(
   </StrictMode>
 )
 
-// Remove loader after first paint
+// Remove loader(s) after first paint
 requestAnimationFrame(() => {
   setTimeout(() => {
-    if (document.body.contains(loader)) document.body.removeChild(loader)
+    const overlays = Array.from(document.querySelectorAll('.app-loader-overlay')) as HTMLElement[]
+    overlays.forEach(el => el.parentElement?.removeChild(el))
   }, 400)
 })

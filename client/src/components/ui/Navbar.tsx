@@ -38,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({ onThemeToggle, isDarkMode }) => {
     {
       icon: ShoppingCart,
       label: 'Shopping Cart',
-      href: '/ShoppingCart',
+      href: '/Cart',
     },
     {
       icon: LogIn,
@@ -91,8 +91,8 @@ const Navbar: React.FC<NavbarProps> = ({ onThemeToggle, isDarkMode }) => {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center p-4">
-      <div className="flex items-center space-x-3 bg-card/80 text-foreground backdrop-blur-md border border-border rounded-2xl p-1 shadow-lg">
+    <nav className="fixed bottom-0 left-0 right-0 z-[60] flex items-center justify-center p-4 pointer-events-none">
+      <div className="pointer-events-auto flex items-center space-x-3 bg-card/90 text-foreground backdrop-blur-md border border-border rounded-2xl p-1 shadow-lg">
         {navItems.map((item, index) => (
           <React.Fragment key={item.label}>
             <Button

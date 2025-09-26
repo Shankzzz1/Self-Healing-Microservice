@@ -118,16 +118,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 								: { opacity: 0 }
 						}
 						transition={phase === 'expanding' ? { duration: 0.55, ease: [0.4, 0, 0.2, 1] } : { duration: 0.18, ease: 'easeOut' }}
-						style={{
-							position: 'fixed',
-							top: 0,
-							left: 0,
-							right: 0,
-							bottom: 0,
-							zIndex: 9999,
-							pointerEvents: 'none',
-							background: animatingTo === 'dark' ? DARK_BG : LIGHT_BG,
-						}}
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            zIndex: 0,
+                            pointerEvents: 'none',
+                            background: animatingTo === 'dark' ? DARK_BG : LIGHT_BG,
+                        }}
 						onAnimationComplete={() => {
 							if (phase === 'expanding') {
 								// fully covered; switch theme underneath and then fade the overlay away
