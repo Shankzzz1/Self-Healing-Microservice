@@ -91,32 +91,30 @@ const Navbar: React.FC<NavbarProps> = ({ onThemeToggle, isDarkMode }) => {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 flex items-center justify-center p-6">
-      <div className="flex items-center space-x-3 bg-black/70 backdrop-blur-md border border-white/10 rounded-2xl p-1 shadow-lg">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center p-4">
+      <div className="flex items-center space-x-3 bg-card/80 text-foreground backdrop-blur-md border border-border rounded-2xl p-1 shadow-lg">
         {navItems.map((item, index) => (
           <React.Fragment key={item.label}>
             <Button
               variant="ghost"
               size="sm"
-              className="h-12 w-12 p-0 text-white hover:text-white hover:bg-white/10 transition-all duration-300 rounded-xl"
+              className="h-12 w-12 p-0 text-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-300 rounded-xl"
               asChild
             >
               <a
                 href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 aria-label={item.label}
               >
                 <item.icon className="h-6 w-6" />
               </a>
             </Button>
             {index < navItems.length - 1 && (
-              <div className="w-px h-6 bg-white/40" />
+              <div className="w-px h-6 bg-border/60" />
             )}
           </React.Fragment>
         ))}
         
-        <div className="w-px h-6 bg-white/40" />
+        <div className="w-px h-6 bg-border/60" />
         
         <motion.div
           variants={buttonVariants}
@@ -125,7 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({ onThemeToggle, isDarkMode }) => {
           <Button
             variant="ghost"
             size="sm"
-            className="h-12 w-12 p-0 text-white hover:text-white hover:bg-white/10 transition-all duration-300 rounded-xl relative overflow-hidden"
+            className="h-12 w-12 p-0 text-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-300 rounded-xl relative overflow-hidden"
             onClick={handleThemeToggle}
             aria-label={currentIsDarkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
