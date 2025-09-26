@@ -118,3 +118,35 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Global loading overlay */
+.app-loader-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in oklab, var(--background) 85%, black);
+  z-index: 9998;
+}
+
+.app-loader-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: var(--foreground);
+  animation: appDot 1s infinite ease-in-out;
+}
+
+.app-loader-dot:nth-child(2) { animation-delay: .15s }
+.app-loader-dot:nth-child(3) { animation-delay: .3s }
+
+@keyframes appDot {
+  0%, 80%, 100% { transform: scale(0) }
+  40% { transform: scale(1) }
+}

@@ -129,7 +129,7 @@ const TrendingProducts = () => {
           {products[activeTab].map((product) => (
             <div key={`${product.id}-${activeTab}`} ref={addToProductRefs} className="product-card bg-card text-card-foreground rounded-2xl overflow-hidden shadow-lg group border">
               <div className="relative aspect-square overflow-hidden">
-                <img src={product.image} alt={product.name} className="product-image w-full h-full object-cover" />
+                <img src={product.image} alt={product.name} loading="lazy" className="product-image w-full h-full object-cover" />
                 <div className="absolute top-4 left-4">
                   <span className={`inline-block px-3 py-1 text-xs font-bold rounded-full ${product.badge === 'Bestseller' ? 'bg-red-500 text-white' : product.badge === 'New' ? 'bg-green-500 text-white' : product.badge === 'Hot' ? 'bg-orange-500 text-white' : product.badge.includes('Off') ? 'bg-blue-500 text-white' : 'bg-foreground text-background'}`}>
                     {product.badge}

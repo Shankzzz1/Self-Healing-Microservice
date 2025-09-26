@@ -87,7 +87,7 @@ const FeaturedCategories = () => {
           {categories.filter(cat => cat.featured).map((category, index) => (
             <div key={category.id} ref={addToCategoryRefs} className={`category-card relative group cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl ${index === 0 ? 'md:col-span-1 lg:col-span-1' : 'md:col-span-1 lg:col-span-1'} h-96`}>
               <div className="absolute inset-0">
-                <img src={category.image} alt={category.title} className="category-image w-full h-full object-cover" />
+                <img src={category.image} alt={category.title} loading="lazy" className="category-image w-full h-full object-cover" />
               </div>
               <div className="category-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
               <div className="category-content absolute inset-0 p-8 flex flex-col justify-end">
@@ -108,7 +108,7 @@ const FeaturedCategories = () => {
           {categories.filter(cat => !cat.featured).map(category => (
             <div key={category.id} ref={addToCategoryRefs} className="category-card relative group cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl h-64">
               <div className="absolute inset-0">
-                <img src={category.image} alt={category.title} className="category-image w-full h-full object-cover" />
+                <img src={category.image} alt={category.title} loading="lazy" className="category-image w-full h-full object-cover" />
               </div>
               <div className="category-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
               <div className="category-content absolute inset-0 p-6 flex flex-col justify-end">

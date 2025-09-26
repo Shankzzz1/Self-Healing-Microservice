@@ -154,7 +154,7 @@ const DealsSection = () => {
                 </div>
               )}
               <div className="deal-image aspect-[4/3] relative overflow-hidden bg-muted/20">
-                <img src={deal.image} alt={deal.title} className="w-full h-full object-cover" />
+                <img src={deal.image} alt={deal.title} loading="lazy" className="w-full h-full object-cover" />
                 <div className="deal-actions absolute inset-4 flex justify-between items-end">
                   <div className="flex space-x-2">
                     <button className="p-2 bg-background/90 hover:bg-background rounded-full shadow-lg transition-all border">

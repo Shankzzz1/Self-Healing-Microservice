@@ -171,6 +171,7 @@ const Hero = () => {
                   <img
                     src={image.url}
                     alt={image.alt}
+                    loading="lazy"
                     className="w-full h-full object-cover rounded-xl shadow-2xl transition-all duration-300 hover:shadow-white/10 hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300">
