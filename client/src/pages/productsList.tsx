@@ -7,7 +7,6 @@ import { Slider } from '@/components/ui/slider';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
-// Sample product data
 const sampleProducts = [
   { id: 1, name: 'Wireless Headphones', description: 'Premium noise-cancelling headphones', price: 299, rating: 4.5, category: 'Electronics', brand: 'TechPro', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop' },
   { id: 2, name: 'Smart Watch', description: 'Advanced fitness tracking smartwatch', price: 399, rating: 4.3, category: 'Electronics', brand: 'FitTech', image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=300&h=300&fit=crop' },
@@ -46,31 +45,26 @@ export default function ProductList() {
 
   const productsPerPage = 6;
 
-  // GSAP animations
   useEffect(() => {
     const gsap = window.gsap;
     if (!gsap) return;
 
-    // Header animation
     gsap.fromTo(headerRef.current, 
       { y: -50, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
     );
 
-    // Sidebar animation
     gsap.fromTo(sidebarRef.current,
       { x: -100, opacity: 0 },
       { x: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" }
     );
 
-    // Product grid animation
     gsap.fromTo(productGridRef.current,
       { y: 50, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8, delay: 0.4, ease: "power3.out" }
     );
   }, []);
 
-  // Animate product cards when they change
   useEffect(() => {
     const gsap = window.gsap;
     if (!gsap) return;
@@ -91,7 +85,6 @@ export default function ProductList() {
     });
   }, [products, currentPage]);
 
-  // Filter and sort products
   const filteredProducts = React.useMemo(() => {
     let filtered = sampleProducts.filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -102,7 +95,6 @@ export default function ProductList() {
       return matchesSearch && matchesCategory && matchesBrand && matchesPrice;
     });
 
-    // Sort products
     switch (sortBy) {
       case 'price-low':
         filtered.sort((a, b) => a.price - b.price);
@@ -114,13 +106,12 @@ export default function ProductList() {
         filtered.sort((a, b) => b.rating - a.rating);
         break;
       default:
-        filtered.sort((a, b) => b.id - a.id); // newest
+        filtered.sort((a, b) => b.id - a.id);
     }
 
     return filtered;
   }, [searchTerm, selectedCategory, selectedBrand, priceRange, sortBy]);
 
-  // Pagination
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
   const currentProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
@@ -136,7 +127,6 @@ export default function ProductList() {
   };
 
   const handleAddToCart = (product) => {
-    // Add to cart animation
     const gsap = window.gsap;
     if (gsap) {
       const button = event.target;
@@ -151,23 +141,22 @@ export default function ProductList() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
       
       {/* Header */}
-      <header ref={headerRef} className="bg-black text-white p-6 shadow-lg">
+      <header ref={headerRef} className="bg-gray-900 dark:bg-gray-800 text-white p-6 shadow-lg transition-colors duration-200">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold mb-6">Explore Our Collection</h1>
           
-          {/* Search and Sort Bar */}
           <div className="flex flex-col md:flex-row gap-4 items-center">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 transition-colors duration-200" />
               <Input
                 placeholder="Search products..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-white text-black border-gray-300"
+                className="pl-10 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
               />
             </div>
             
@@ -175,14 +164,14 @@ export default function ProductList() {
               <Button
                 variant="outline"
                 onClick={() => setShowFilters(!showFilters)}
-                className="bg-white text-black border-white hover:bg-gray-100"
+                className="bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200"
               >
                 <Filter className="h-4 w-4 mr-2" />
                 Filters
               </Button>
               
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-48 bg-white text-black border-white">
+                <SelectTrigger className="w-48 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 transition-colors duration-200">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -205,18 +194,18 @@ export default function ProductList() {
             ref={sidebarRef}
             className={`${showFilters ? 'block' : 'hidden'} md:block w-64 space-y-6 flex-shrink-0`}
           >
-            <Card className="border-black">
+            <Card className="border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 transition-colors duration-200">
               <CardContent className="p-4">
-                <h3 className="font-semibold mb-4">Categories</h3>
+                <h3 className="font-semibold mb-4 text-gray-900 dark:text-gray-100 transition-colors duration-200">Categories</h3>
                 <div className="space-y-2">
                   {categories.map(category => (
                     <Button
                       key={category}
                       variant={selectedCategory === category ? "default" : "ghost"}
-                      className={`w-full justify-start ${
+                      className={`w-full justify-start transition-colors duration-200 ${
                         selectedCategory === category 
-                          ? 'bg-black text-white' 
-                          : 'text-black hover:bg-gray-100'
+                          ? 'bg-gray-900 dark:bg-gray-700 text-white' 
+                          : 'text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                       }`}
                       onClick={() => setSelectedCategory(category)}
                     >
@@ -227,11 +216,11 @@ export default function ProductList() {
               </CardContent>
             </Card>
 
-            <Card className="border-black">
+            <Card className="border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 transition-colors duration-200">
               <CardContent className="p-4">
-                <h3 className="font-semibold mb-4">Brands</h3>
+                <h3 className="font-semibold mb-4 text-gray-900 dark:text-gray-100 transition-colors duration-200">Brands</h3>
                 <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-                  <SelectTrigger className="border-gray-300">
+                  <SelectTrigger className="border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-colors duration-200">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -245,9 +234,9 @@ export default function ProductList() {
               </CardContent>
             </Card>
 
-            <Card className="border-black">
+            <Card className="border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 transition-colors duration-200">
               <CardContent className="p-4">
-                <h3 className="font-semibold mb-4">Price Range</h3>
+                <h3 className="font-semibold mb-4 text-gray-900 dark:text-gray-100 transition-colors duration-200">Price Range</h3>
                 <div className="space-y-4">
                   <Slider
                     value={priceRange}
@@ -257,7 +246,7 @@ export default function ProductList() {
                     step={10}
                     className="w-full"
                   />
-                  <div className="flex justify-between text-sm text-gray-600">
+                  <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 transition-colors duration-200">
                     <span>${priceRange[0]}</span>
                     <span>${priceRange[1]}</span>
                   </div>
@@ -269,7 +258,7 @@ export default function ProductList() {
           {/* Product Grid */}
           <div className="flex-1">
             <div className="mb-6 flex justify-between items-center">
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-400 transition-colors duration-200">
                 Showing {startIndex + 1}-{Math.min(startIndex + productsPerPage, filteredProducts.length)} of {filteredProducts.length} products
               </p>
             </div>
@@ -282,7 +271,7 @@ export default function ProductList() {
                 <Card
                   key={product.id}
                   ref={el => productRefs.current[index] = el}
-                  className="border-black hover:shadow-lg transition-all duration-300 group"
+                  className="border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:shadow-lg transition-all duration-300 group"
                 >
                   <CardContent className="p-4">
                     <div className="relative mb-4 overflow-hidden rounded-lg">
@@ -295,8 +284,8 @@ export default function ProductList() {
                         variant="ghost"
                         size="sm"
                         className={`absolute top-2 right-2 p-2 ${
-                          wishlist.has(product.id) ? 'text-red-500' : 'text-gray-500'
-                        } hover:text-red-500 bg-white/80 backdrop-blur-sm`}
+                          wishlist.has(product.id) ? 'text-red-500 dark:text-red-400' : 'text-gray-500 dark:text-gray-400'
+                        } hover:text-red-500 dark:hover:text-red-400 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm transition-colors duration-200`}
                         onClick={() => handleWishlistToggle(product.id)}
                       >
                         <Heart className="h-4 w-4" fill={wishlist.has(product.id) ? 'currentColor' : 'none'} />
@@ -304,32 +293,32 @@ export default function ProductList() {
                     </div>
 
                     <div className="space-y-2">
-                      <h3 className="font-semibold text-lg">{product.name}</h3>
-                      <p className="text-sm text-gray-600">{product.description}</p>
+                      <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 transition-colors duration-200">{product.name}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-200">{product.description}</p>
                       
                       <div className="flex items-center gap-2">
                         <div className="flex items-center">
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`h-4 w-4 ${
-                                i < Math.floor(product.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                              className={`h-4 w-4 transition-colors duration-200 ${
+                                i < Math.floor(product.rating) ? 'text-yellow-400 dark:text-yellow-500 fill-current' : 'text-gray-300 dark:text-gray-600'
                               }`}
                             />
                           ))}
                         </div>
-                        <span className="text-sm text-gray-600">({product.rating})</span>
+                        <span className="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-200">({product.rating})</span>
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-2xl font-bold">${product.price}</span>
-                        <Badge variant="outline" className="border-gray-300">
+                        <span className="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-200">${product.price}</span>
+                        <Badge variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 transition-colors duration-200">
                           {product.category}
                         </Badge>
                       </div>
 
                       <Button
-                        className="w-full bg-black text-white hover:bg-gray-800 transition-colors"
+                        className="w-full bg-gray-900 dark:bg-gray-700 text-white hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors duration-200"
                         onClick={() => handleAddToCart(product)}
                       >
                         <ShoppingCart className="h-4 w-4 mr-2" />
@@ -348,7 +337,7 @@ export default function ProductList() {
                   variant="outline"
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage(currentPage - 1)}
-                  className="border-black text-black hover:bg-gray-100"
+                  className="border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
                 >
                   <ChevronLeft className="h-4 w-4 mr-2" />
                   Previous
@@ -359,10 +348,10 @@ export default function ProductList() {
                     <Button
                       key={index}
                       variant={currentPage === index + 1 ? "default" : "outline"}
-                      className={`w-10 h-10 p-0 ${
+                      className={`w-10 h-10 p-0 transition-colors duration-200 ${
                         currentPage === index + 1
-                          ? 'bg-black text-white'
-                          : 'border-black text-black hover:bg-gray-100'
+                          ? 'bg-gray-900 dark:bg-gray-700 text-white'
+                          : 'border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                       }`}
                       onClick={() => setCurrentPage(index + 1)}
                     >
@@ -375,7 +364,7 @@ export default function ProductList() {
                   variant="outline"
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage(currentPage + 1)}
-                  className="border-black text-black hover:bg-gray-100"
+                  className="border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
                 >
                   Next
                   <ChevronRight className="h-4 w-4 ml-2" />
@@ -388,3 +377,6 @@ export default function ProductList() {
     </div>
   );
 }
+
+
+
