@@ -33,7 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({ onThemeToggle, isDarkMode }) => {
     {
       icon: Search,
       label: 'Search',
-      href: '/search',
+      href: '/product',
     },
     {
       icon: ShoppingCart,

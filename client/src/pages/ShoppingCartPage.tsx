@@ -70,7 +70,6 @@ const ShoppingCartPage: React.FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Simple fade-in animation - ensure everything is visible
     const animateElements = () => {
       if (headerRef.current) {
         headerRef.current.style.opacity = '1';
@@ -90,7 +89,6 @@ const ShoppingCartPage: React.FC = () => {
       }
     };
 
-    // Run immediately to ensure visibility
     animateElements();
   }, [cartItems]);
 
@@ -109,7 +107,6 @@ const ShoppingCartPage: React.FC = () => {
   };
 
   const saveForLater = (id: number) => {
-    // Simple visual feedback
     const itemElement = itemsRef.current.find(el => 
       el?.getAttribute('data-item-id') === id.toString()
     );
@@ -141,23 +138,31 @@ const ShoppingCartPage: React.FC = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-white text-gray-900 p-6">
+      <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 p-6 transition-colors duration-200">
         <div className="max-w-4xl mx-auto">
           <div ref={headerRef} className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4 text-gray-900">Your Shopping Cart</h1>
-            <p className="text-gray-600">Review your items and proceed to checkout.</p>
+            <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+              Your Shopping Cart
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400 transition-colors duration-200">
+              Review your items and proceed to checkout.
+            </p>
           </div>
           
           <div className="text-center py-20">
             <div className="mb-8">
-              <ShoppingBag className="w-24 h-24 mx-auto text-gray-400 mb-6" />
-              <h2 className="text-2xl font-semibold mb-4 text-gray-900">Your cart is empty</h2>
-              <p className="text-gray-600 mb-8">Discover our amazing products and start shopping!</p>
+              <ShoppingBag className="w-24 h-24 mx-auto text-gray-400 dark:text-gray-500 mb-6 transition-colors duration-200" />
+              <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+                Your cart is empty
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-8 transition-colors duration-200">
+                Discover our amazing products and start shopping!
+              </p>
             </div>
             
             <Button 
               size="lg" 
-              className="px-8 bg-blue-600 hover:bg-blue-700 text-white"
+              className="px-8 bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-200"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Start Shopping
@@ -169,12 +174,16 @@ const ShoppingCartPage: React.FC = () => {
   }
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-white text-gray-900 p-6">
+    <div ref={containerRef} className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 p-6 transition-colors duration-200">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div ref={headerRef} className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 text-gray-900">Your Shopping Cart</h1>
-          <p className="text-gray-600">Review your items and proceed to checkout.</p>
+          <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+            Your Shopping Cart
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 transition-colors duration-200">
+            Review your items and proceed to checkout.
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -188,7 +197,7 @@ const ShoppingCartPage: React.FC = () => {
                     if (el) itemsRef.current[index] = el;
                   }}
                   data-item-id={item.id}
-                  className="border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-200"
+                  className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-all duration-200"
                 >
                   <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row gap-6">
@@ -198,19 +207,21 @@ const ShoppingCartPage: React.FC = () => {
                           src={item.image}
                           alt={item.name}
                           loading="lazy"
-                          className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg border border-gray-200"
+                          className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-200"
                         />
                       </div>
 
                       {/* Product Details */}
                       <div className="flex-1">
                         <div className="flex justify-between items-start mb-2">
-                          <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
+                          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 transition-colors duration-200">
+                            {item.name}
+                          </h3>
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => removeItem(item.id)}
-                            className="text-gray-500 hover:text-red-500 hover:bg-red-50"
+                            className="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950 transition-colors duration-200"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
@@ -218,12 +229,12 @@ const ShoppingCartPage: React.FC = () => {
                         
                         <div className="flex flex-wrap gap-2 mb-3">
                           {item.color && (
-                            <Badge variant="outline" className="text-xs bg-gray-50 text-gray-700 border-gray-300">
+                            <Badge variant="outline" className="text-xs bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 transition-colors duration-200">
                               {item.color}
                             </Badge>
                           )}
                           {item.size && (
-                            <Badge variant="outline" className="text-xs bg-gray-50 text-gray-700 border-gray-300">
+                            <Badge variant="outline" className="text-xs bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 transition-colors duration-200">
                               Size {item.size}
                             </Badge>
                           )}
@@ -237,18 +248,18 @@ const ShoppingCartPage: React.FC = () => {
                               size="sm"
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
                               disabled={item.quantity <= 1}
-                              className="w-8 h-8 p-0 border-gray-300 hover:bg-gray-50"
+                              className="w-8 h-8 p-0 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
                             >
                               <Minus className="w-3 h-3" />
                             </Button>
-                            <span className="w-8 text-center font-medium text-gray-900">
+                            <span className="w-8 text-center font-medium text-gray-900 dark:text-gray-100 transition-colors duration-200">
                               {item.quantity}
                             </span>
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="w-8 h-8 p-0 border-gray-300 hover:bg-gray-50"
+                              className="w-8 h-8 p-0 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
                             >
                               <Plus className="w-3 h-3" />
                             </Button>
@@ -256,10 +267,10 @@ const ShoppingCartPage: React.FC = () => {
 
                           {/* Price */}
                           <div className="text-right">
-                            <div className="text-sm text-gray-600">
+                            <div className="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-200">
                               ${item.price.toFixed(2)} each
                             </div>
-                            <div className="text-lg font-semibold text-gray-900">
+                            <div className="text-lg font-semibold text-gray-900 dark:text-gray-100 transition-colors duration-200">
                               ${(item.price * item.quantity).toFixed(2)}
                             </div>
                           </div>
@@ -271,7 +282,7 @@ const ShoppingCartPage: React.FC = () => {
                             variant="ghost"
                             size="sm"
                             onClick={() => saveForLater(item.id)}
-                            className="text-gray-600 hover:text-gray-900 p-0 h-auto font-normal hover:bg-gray-50"
+                            className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 p-0 h-auto font-normal hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
                           >
                             <Heart className="w-4 h-4 mr-1" />
                             Save for Later
@@ -287,36 +298,38 @@ const ShoppingCartPage: React.FC = () => {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <Card ref={summaryRef} className="border border-gray-200 bg-white shadow-lg sticky top-6">
-              <CardHeader className="bg-gray-50 border-b border-gray-200">
-                <CardTitle className="text-xl text-gray-900">Order Summary</CardTitle>
+            <Card ref={summaryRef} className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg sticky top-6 transition-colors duration-200">
+              <CardHeader className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                <CardTitle className="text-xl text-gray-900 dark:text-gray-100 transition-colors duration-200">
+                  Order Summary
+                </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4 p-6 bg-white">
-                <div className="flex justify-between text-gray-900">
+              <CardContent className="space-y-4 p-6 bg-white dark:bg-gray-900 transition-colors duration-200">
+                <div className="flex justify-between text-gray-900 dark:text-gray-100 transition-colors duration-200">
                   <span>Subtotal ({cartItems.length} items)</span>
                   <span className="font-medium">${subtotal.toFixed(2)}</span>
                 </div>
                 
-                <div className="flex justify-between text-gray-900">
+                <div className="flex justify-between text-gray-900 dark:text-gray-100 transition-colors duration-200">
                   <span>Shipping</span>
-                  <span className={`font-medium ${shipping === 0 ? 'text-green-600' : 'text-gray-900'}`}>
+                  <span className={`font-medium ${shipping === 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-900 dark:text-gray-100'} transition-colors duration-200`}>
                     {shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}
                   </span>
                 </div>
                 
-                <div className="flex justify-between text-gray-900">
+                <div className="flex justify-between text-gray-900 dark:text-gray-100 transition-colors duration-200">
                   <span>Tax</span>
                   <span className="font-medium">${tax.toFixed(2)}</span>
                 </div>
 
                 {promoApplied && (
-                  <div className="flex justify-between text-green-600 font-medium">
+                  <div className="flex justify-between text-green-600 dark:text-green-400 font-medium transition-colors duration-200">
                     <span>Discount (SAVE10)</span>
                     <span>-${discount.toFixed(2)}</span>
                   </div>
                 )}
 
-                <Separator className="bg-gray-200" />
+                <Separator className="bg-gray-200 dark:bg-gray-700 transition-colors duration-200" />
 
                 {/* Promo Code */}
                 <div className="space-y-2">
@@ -326,35 +339,35 @@ const ShoppingCartPage: React.FC = () => {
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
                       disabled={promoApplied}
-                      className="border-gray-300 bg-white text-gray-900 placeholder-gray-500"
+                      className="border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
                     />
                     <Button
                       variant="outline"
                       onClick={applyPromoCode}
                       disabled={promoApplied || !promoCode}
                       size="sm"
-                      className="border-gray-300 hover:bg-gray-50"
+                      className="border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
                     >
                       <Tag className="w-4 h-4" />
                     </Button>
                   </div>
                   {promoApplied && (
-                    <p className="text-sm text-green-600 font-medium">
+                    <p className="text-sm text-green-600 dark:text-green-400 font-medium transition-colors duration-200">
                       ✓ Promo code applied!
                     </p>
                   )}
                 </div>
 
-                <Separator className="bg-gray-200" />
+                <Separator className="bg-gray-200 dark:bg-gray-700 transition-colors duration-200" />
 
-                <div className="flex justify-between text-xl font-bold text-gray-900 pt-2">
+                <div className="flex justify-between text-xl font-bold text-gray-900 dark:text-gray-100 pt-2 transition-colors duration-200">
                   <span>Total</span>
                   <span>${total.toFixed(2)}</span>
                 </div>
 
                 <div className="space-y-3 pt-4">
                   <Button
-                    className="w-full h-12 text-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+                    className="w-full h-12 text-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors duration-200"
                     onClick={proceedToCheckout}
                     disabled={isLoading}
                   >
@@ -373,14 +386,14 @@ const ShoppingCartPage: React.FC = () => {
                   
                   <Button
                     variant="outline"
-                    className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
+                    className="w-full border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Continue Shopping
                   </Button>
                 </div>
 
-                <div className="text-xs text-gray-500 text-center pt-2 border-t border-gray-100">
+                <div className="text-xs text-gray-500 dark:text-gray-400 text-center pt-2 border-t border-gray-100 dark:border-gray-800 transition-colors duration-200">
                   Free shipping on orders over $100
                 </div>
               </CardContent>

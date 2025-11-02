@@ -7,6 +7,8 @@ import { useTheme } from './components/theme/ThemeProvider'
 import Footer from '@/components/ui/Footer'
 import Auth from "./pages/Auth"
 import ShoppingCartPage from "./pages/ShoppingCartPage"
+import ProductList from "./pages/productsList"
+import ProductDetailPage from "./components/ui/Product"
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function AppShell() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/Cart" element={<ShoppingCartPage />} />
+          <Route path="/product" element={<ProductList />} />
+          <Route path="/product/prod" element={<ProductDetailPage />} />
         </Routes>
       </main>
 
