@@ -1,36 +1,72 @@
 import { Request, Response } from "express";
+import Razorpay from "razorpay";
+import crypto from "crypto";
 import { Payment } from "../model/payment";
+import dotenv from "dotenv";
+dotenv.config();
 
-export const initiatePayment = async (req: Request, res: Response) => {
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID!,
+  key_secret: process.env.RAZORPAY_KEY_SECRET!,
+});
+
+export const createPayment = async (req: Request, res: Response) => {
   try {
-    const { orderId, amount, method } = req.body;
-    const payment = await Payment.create({ orderId, amount, method });
-    res.status(201).json(payment);
+    console.log("Creating Razorpay order with:", req.body);
+    console.log("Using keys:", process.env.RAZORPAY_KEY_ID, process.env.RAZORPAY_KEY_SECRET ? "✅ Secret loaded" : "❌ Missing secret");
+
+    const options = {
+      amount: req.body.amount * 100, // amount in paise
+      currency: req.body.currency,
+      receipt: req.body.receipt,
+    };
+
+    const order = await razorpay.orders.create(options);
+    console.log("✅ Razorpay order created:", order);
+    res.status(200).json(order);
   } catch (error: any) {
-    res.status(500).json({ error: "Payment initiation failed", details: error.message });
+    console.error("❌ Razorpay Error:", error);
+    res.status(500).json({
+      error: "Failed to create Razorpay order",
+      details: error.message,
+    });
   }
 };
 
-export const confirmPayment = async (req: Request, res: Response) => {
-  try {
-    const payment = await Payment.findByIdAndUpdate(
-      req.params.id,
-      { status: "success" },
-      { new: true }
-    );
-    if (!payment) return res.status(404).json({ error: "Payment not found" });
-    res.json(payment);
-  } catch (error: any) {
-    res.status(500).json({ error: "Payment confirmation failed", details: error.message });
-  }
-};
 
-export const getPaymentStatus = async (req: Request, res: Response) => {
+// Verify Payment
+export const verifyPayment = async (req: Request, res: Response) => {
   try {
-    const payment = await Payment.findById(req.params.id);
-    if (!payment) return res.status(404).json({ error: "Payment not found" });
-    res.json(payment);
-  } catch (error: any) {
-    res.status(500).json({ error: "Error fetching payment status", details: error.message });
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
+    const expectedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
+      .update(body.toString())
+      .digest("hex");
+
+    const isAuthentic = expectedSignature === razorpay_signature;
+
+    if (isAuthentic) {
+      await Payment.findOneAndUpdate(
+        { razorpayOrderId: razorpay_order_id },
+        {
+          status: "success",
+          razorpayPaymentId: razorpay_payment_id,
+          razorpaySignature: razorpay_signature,
+        }
+      );
+      res.status(200).json({ success: true, message: "Payment verified successfully" });
+    } else {
+      await Payment.findOneAndUpdate(
+        { razorpayOrderId: razorpay_order_id },
+        { status: "failed" }
+      );
+      res.status(400).json({ success: false, message: "Invalid signature" });
+    }
+  } catch (error) {
+    console.error("Error verifying payment:", error);
+    res.status(500).json({ error: "Payment verification failed" });
   }
 };

@@ -1,22 +1,30 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface IPayment extends Document {
   orderId: string;
+  userId: string;
   amount: number;
+  paymentMethod: string;
   status: "pending" | "success" | "failed";
-  method: string;
+  razorpayOrderId?: string;
+  razorpayPaymentId?: string;
+  razorpaySignature?: string;
 }
 
 const paymentSchema = new Schema<IPayment>(
   {
     orderId: { type: String, required: true },
+    userId: { type: String, required: true },
     amount: { type: Number, required: true },
+    paymentMethod: { type: String, default: "razorpay" },
     status: {
       type: String,
       enum: ["pending", "success", "failed"],
       default: "pending",
     },
-    method: { type: String, default: "credit-card" },
+    razorpayOrderId: String,
+    razorpayPaymentId: String,
+    razorpaySignature: String,
   },
   { timestamps: true }
 );

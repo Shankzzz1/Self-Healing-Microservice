@@ -1,9 +1,11 @@
+import dotenv from "dotenv";
 import app from "./app";
 import connectDB from "./utils/db";
 
-const PORT = 3003;
+dotenv.config();
 
-app.listen(PORT, async () => {
-  await connectDB();
-  console.log(`🚀 Payment service running on port ${PORT}`);
+const PORT = process.env.PORT || 3003;
+
+connectDB().then(() => {
+  app.listen(PORT, () => console.log(`🚀 Payment service running on port ${PORT}`));
 });
