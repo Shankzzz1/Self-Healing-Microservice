@@ -2,17 +2,23 @@ import { Request, Response } from "express";
 import { Order } from "../model/order";
 import { AuthRequest } from "../middleware/authMiddleware";
 
-export const createOrder = async (req: AuthRequest, res: Response) => {
+export const createOrder = async (req: Request, res: Response) => {
   try {
-    const { items, totalAmount } = req.body;
-    const userId = req.user.id;
+    const { items, totalAmount, userId } = req.body;
 
-    const order = await Order.create({ userId, items, totalAmount });
+    const order = await Order.create({
+      userId: userId || "testUser123",
+      items,
+      totalAmount,
+    });
+
     res.status(201).json(order);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to create order" });
+  } catch (error: any) {
+    console.error("Error creating order:", error.message);
+    res.status(500).json({ error: "Failed to create order", details: error.message });
   }
 };
+
 
 export const getOrder = async (req: Request, res: Response) => {
   try {
